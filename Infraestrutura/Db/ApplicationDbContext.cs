@@ -17,6 +17,7 @@ namespace mininal_api.Infraestrutura.Db
             _configuracaoAppSettings = configuracaoAppSettings;
         }
         public DbSet<Administrador> Administradores { get; set; } = default!;
+        public DbSet<Veiculo> Veiculos { get; set; } = default!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -39,8 +40,8 @@ namespace mininal_api.Infraestrutura.Db
                 if (!string.IsNullOrEmpty(stringConexao))
                 {
                     optionsBuilder.UseMySql(
-                                    stringConexao,
-                                    ServerVersion.AutoDetect(stringConexao)
+                        stringConexao,
+                        ServerVersion.AutoDetect(stringConexao)
                     );
                 }
             }

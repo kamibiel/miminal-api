@@ -1,8 +1,13 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using mininal_api.Dominio.DTOs;
+using mininal_api.Dominio.Servicos;
 using mininal_api.Infraestrutura.Db;
+using mininal_api.Infraestrutura.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddScoped<IAdministradorServicos, AdministradorServico>();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options => 
 {
@@ -16,7 +21,7 @@ var app = builder.Build();
 
 app.MapGet("/", () => "Hello World!");
 
-app.MapPost("/login", async (LoginDTO loginDTO, ApplicationDbContext dbContext) =>
+app.MapPost("/login", async ([FromBody] LoginDTO loginDTO, IAdministradorServicos administradorServico, ApplicationDbContext dbContext) =>
 {
     // Busca o administrador pelo email ou username
     var administrador = await dbContext.Administradores
