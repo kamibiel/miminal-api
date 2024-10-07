@@ -8,6 +8,8 @@ using mininal_api.Infraestrutura.Interfaces;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddScoped<IAdministradorServicos, AdministradorServico>();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options => 
 {
@@ -41,4 +43,6 @@ app.MapPost("/login", async ([FromBody] LoginDTO loginDTO, IAdministradorServico
     return Results.Unauthorized();
 });
 
+app.UseSwagger();
+app.UseSwaggerUI();
 app.Run();
