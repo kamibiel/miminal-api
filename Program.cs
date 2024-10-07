@@ -1,13 +1,18 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using mininal_api.Dominio.DTOs;
+using mininal_api.Dominio.Entidades;
+using mininal_api.Dominio.Interfaces;
+using mininal_api.Dominio.ModelViews;
 using mininal_api.Dominio.Servicos;
 using mininal_api.Infraestrutura.Db;
 using mininal_api.Infraestrutura.Interfaces;
 
+#region Builder
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddScoped<IAdministradorServicos, AdministradorServico>();
+builder.Services.AddScoped<IVeiculoServico, VeiculoServico>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -20,10 +25,14 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 });
 
 var app = builder.Build();
+#endregion
 
-app.MapGet("/", () => "Hello World!");
+# region Home
+app.MapGet("/", () => Results.Json(new Home()));
+#endregion
 
-app.MapPost("/login", async ([FromBody] LoginDTO loginDTO, IAdministradorServicos administradorServico, ApplicationDbContext dbContext) =>
+#region Administradores
+app.MapPost("/administradores/login", async ([FromBody] LoginDTO loginDTO, IAdministradorServicos administradorServico, ApplicationDbContext dbContext) =>
 {
     // Busca o administrador pelo email ou username
     var administrador = await dbContext.Administradores
@@ -42,7 +51,24 @@ app.MapPost("/login", async ([FromBody] LoginDTO loginDTO, IAdministradorServico
     
     return Results.Unauthorized();
 });
+#endregion
 
+#region Veiculos
+app.MapPost("/veiculos", ([FromBody] VeiculoDTO veiculoDTO, IVeiculoServico veiculoServico) => 
+{
+    var veiculo = new Veiculo {
+        Nome = veiculoDTO.Nome,
+        Marca = veiculoDTO.Marca,
+        Ano = veiculoDTO.Ano
+    };
+    veiculoServico.Incluir(veiculo);
+    
+    return Results.Created($"/veiculo/{veiculo.Id}", veiculo);
+});
+#endregion
+
+#region App
 app.UseSwagger();
 app.UseSwaggerUI();
 app.Run();
+#endregion
