@@ -195,11 +195,13 @@ app.MapPost("/administradores", ([FromBody] AdministradorDTO administradorDTO, I
         return Results.BadRequest(validacao);
     }
     
+    string senhaHashed = BCrypt.Net.BCrypt.HashPassword(administradorDTO.Senha);
+
     var administrador = new Administrador
     {
         Email = administradorDTO.Email,
         Username = administradorDTO.Username,
-        Senha = administradorDTO.Senha,
+        Senha = senhaHashed,
         Perfil = administradorDTO.Perfil.ToString() ?? Perfil.Editor.ToString()
     };
 
