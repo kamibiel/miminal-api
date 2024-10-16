@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.002.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "mininal-api", "mininal-api.csproj", "{B0615CE3-715D-4418-8542-1C06CF54248D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B0615CE3-715D-4418-8542-1C06CF54248D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0615CE3-715D-4418-8542-1C06CF54248D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0615CE3-715D-4418-8542-1C06CF54248D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0615CE3-715D-4418-8542-1C06CF54248D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {22126A55-086A-4666-97BB-D751655C27BF}
+	EndGlobalSection
+EndGlobal
